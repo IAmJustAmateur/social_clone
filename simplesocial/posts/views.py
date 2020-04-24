@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.http import Http404
 
-from braces.views SelectRelatedMixin
+from braces.views import SelectRelatedMixin
 
 from . import models
 from . import forms
@@ -36,7 +36,7 @@ class UserPost(generic.ListView):
         context['post_user'] = self.post_user
         return context
 
-class PostDetail(SelectRelatedMixin, generric.DetailView):
+class PostDetail(SelectRelatedMixin, generic.DetailView):
     model = models.Post
     select_related = ('user', 'Group')
 

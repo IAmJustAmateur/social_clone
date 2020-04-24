@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
-from django.urls import reverse 
+from django.urls import reverse
 # Create your models here.
 import misaka
 
@@ -25,15 +25,15 @@ class Group(models.Model):
         self.description_html = misaka.html(self.description)
         super().save(*args, **kwargs)
 
-    def get_absolite_url(self):
+    def get_absolute_url(self):
         return reverse('groups:single', kwargs = {'slug':self.slug})
 
     class Meta:
         ordering = ['name']
 
 class GroupMember(models.Model):
-    group = models.ForeignKey(Group, related_name='membership')
-    user = models.ForeignKey(User, related_name='user_groups')
+    group = models.ForeignKey(Group, related_name='membership',on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='user_groups', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
